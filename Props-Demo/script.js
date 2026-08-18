@@ -7,6 +7,7 @@
 
         //Either we can use props.name or we can destructure the props 
         // and use name directly
+        //Destructuring is a process of unpacking values from arrays or properties from objects into distinct variables.
         return(
             <div>
                 <h1>Hi {name}</h1>
