@@ -2,7 +2,9 @@ import CommentItem from './Components/CommonItem'
 import './App.css'
 import {useState} from 'react';
 
-
+//Using Multiple State Variables in a Single Component using the useState Hook.
+//For adding the deleting Functionality to the CommentsLIst it should use UseState hook to change the comments List
+//For that CommentsList has to be passed to the useState.
 const commentsList = [
   {
     uniqueNo: 1,
@@ -52,7 +54,26 @@ const App = () => {
   )
   //Must when we use an arrow function with a single statement we can remove the return keyword and the curly braces.
   //If not we can use the return keyword and the curly braces to return the value from the arrow function.
-  console.log(searchResultsList);
+  // console.log(searchResultsList);
+
+  //The Initial State before deleting the Comment List is the commentsList.
+  const[updatedCommentsList, setUpdatedCommentsList] = useState(commentsList);
+
+ 
+
+  //we can pass this function to the component as a prop.
+  //this function will be called when the delete button is clicked in the component.
+  const deleteComment= uniqueNo =>{
+    console.log("Delete Button   Clicked");
+    console.log("Unique No: ", uniqueNo);
+    const filteredComments = updatedCommentsList.filter(
+      (each) => {
+        return each.uniqueNo != uniqueNo}
+      );
+    console.log(filteredComments);
+    setUpdatedCommentsList(filteredComments);
+  }
+
 
 
   return (
@@ -88,10 +109,15 @@ const App = () => {
           />
         </div>
         <ul className="comments-list">
-          {searchResultsList.map(eachComment => (
+          {/* since we are deleting and updating the commentlist which is used in UpdatedList after deletion
+          we are using the UpdatedCommentList */}
+          {updatedCommentsList.map(eachComment => (
             <CommentItem
               key={eachComment.uniqueNo}
               commentDetails={eachComment}
+              deleteComment = {deleteComment}
+              //Coming to the Passing of the Function it should also contain the same element name
+              //as the props had defined.
             />
           ))}
         </ul>
