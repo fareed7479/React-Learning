@@ -1,6 +1,7 @@
 import CommentItem from './Components/CommonItem'
-
 import './App.css'
+import {useState} from 'react';
+
 
 const commentsList = [
   {
@@ -26,6 +27,19 @@ const commentsList = [
 ]
 
 const App = () => {
+
+  //Use State Hoook for Search Input.
+  const[searchInput, setSearchInput] = useState('');
+
+  //On Change Event Handler for Search Input
+  const onChangeSearchInput = (e) => {
+    //In this SetterFunction we use the nextValue , 
+    //Since we are not using the previous state.it doesn't depened on the previous state value.
+    setSearchInput(e.target.value);
+    // console.log(e.target.value);
+  }
+
+
   return (
     <div className="main-container">
       <div className="header-container">
@@ -51,7 +65,12 @@ const App = () => {
       <div className="comments-container">
         <div className="comments-header">
           <p className="comments-title">Comments</p>
-          <input type="search" placeholder="Search Comment" className="search-input" />
+          <input type="search" 
+                 placeholder="Search Comment" 
+                 className="search-input" 
+                 onChange={onChangeSearchInput}
+                 value = {searchInput}
+          />
         </div>
         <ul className="comments-list">
           {commentsList.map(eachComment => (
