@@ -32,12 +32,27 @@ const App = () => {
   const[searchInput, setSearchInput] = useState('');
 
   //On Change Event Handler for Search Input
+  //The Concept is InputElement -> onChange() -> EventHandlerFunction -> SetterFunction -> StateValueChange -> ReRender the Component with new State Value.
   const onChangeSearchInput = (e) => {
     //In this SetterFunction we use the nextValue , 
     //Since we are not using the previous state.it doesn't depened on the previous state value.
     setSearchInput(e.target.value);
     // console.log(e.target.value);
   }
+
+  //Filtering the Comments List based on the Search Input Value.
+  //Based on the name in EachComment in Commment List using the Includes() Method.
+  const searchResultsList = commentsList.filter(
+    (eachComment) => {
+      return eachComment.name.includes(searchInput);
+      //return eachComment.name.toLowerCase().includes(searchInput.toLowerCase());
+      //We can use the toLowerCase() Method to make the search case insensitive. 
+      // for Both the Search Input and the Name in the Comment List.
+    }
+  )
+  //Must when we use an arrow function with a single statement we can remove the return keyword and the curly braces.
+  //If not we can use the return keyword and the curly braces to return the value from the arrow function.
+  console.log(searchResultsList);
 
 
   return (
@@ -73,7 +88,7 @@ const App = () => {
           />
         </div>
         <ul className="comments-list">
-          {commentsList.map(eachComment => (
+          {searchResultsList.map(eachComment => (
             <CommentItem
               key={eachComment.uniqueNo}
               commentDetails={eachComment}
