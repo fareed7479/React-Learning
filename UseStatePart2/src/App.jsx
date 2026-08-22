@@ -33,6 +33,10 @@ const App = () => {
   //Use State Hoook for Search Input.
   const[searchInput, setSearchInput] = useState('');
 
+  //The Initial State before deleting the Comment List is the commentsList.
+  const[updatedCommentsList, setUpdatedCommentsList] = useState(commentsList);
+
+
   //On Change Event Handler for Search Input
   //The Concept is InputElement -> onChange() -> EventHandlerFunction -> SetterFunction -> StateValueChange -> ReRender the Component with new State Value.
   const onChangeSearchInput = (e) => {
@@ -44,9 +48,9 @@ const App = () => {
 
   //Filtering the Comments List based on the Search Input Value.
   //Based on the name in EachComment in Commment List using the Includes() Method.
-  const searchResultsList = commentsList.filter(
+  const searchResultsList = updatedCommentsList.filter(
     (eachComment) => {
-      return eachComment.name.includes(searchInput);
+      return eachComment.name.toLowerCase().includes(searchInput.toLowerCase());
       //return eachComment.name.toLowerCase().includes(searchInput.toLowerCase());
       //We can use the toLowerCase() Method to make the search case insensitive. 
       // for Both the Search Input and the Name in the Comment List.
@@ -56,8 +60,7 @@ const App = () => {
   //If not we can use the return keyword and the curly braces to return the value from the arrow function.
   // console.log(searchResultsList);
 
-  //The Initial State before deleting the Comment List is the commentsList.
-  const[updatedCommentsList, setUpdatedCommentsList] = useState(commentsList);
+
 
  
 
@@ -111,7 +114,7 @@ const App = () => {
         <ul className="comments-list">
           {/* since we are deleting and updating the commentlist which is used in UpdatedList after deletion
           we are using the UpdatedCommentList */}
-          {updatedCommentsList.map(eachComment => (
+          {searchResultsList.map(eachComment => (
             <CommentItem
               key={eachComment.uniqueNo}
               commentDetails={eachComment}
